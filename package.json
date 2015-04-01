@@ -10,8 +10,11 @@
     "url": "https://github.com/pokemon-club/pokemon_club_client.git"
   },
   "author": "Eric Hopkins",
+  "contributors": [
+  ],
   "bugs": {
     "url": "https://github.com/pokemon-club/pokemon_club_client/issues"
   },
-  "homepage": "https://github.com/pokemon-club/pokemon_club_client"
+  "homepage": "https://github.com/pokemon-club/pokemon_club_client",
+  "private": true
 }
