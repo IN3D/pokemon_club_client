@@ -1,0 +1,17 @@
+{
+  "name": "pokemon_club_client",
+  "version": "0.0.0",
+  "description": "Client application for Pokémon Club",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pokemon-club/pokemon_club_client.git"
+  },
+  "author": "Eric Hopkins",
+  "bugs": {
+    "url": "https://github.com/pokemon-club/pokemon_club_client/issues"
+  },
+  "homepage": "https://github.com/pokemon-club/pokemon_club_client"
+}
