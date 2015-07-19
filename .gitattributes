@@ -1,0 +1,2 @@
+*.jade linguist-documentation
+assets/templates/*.jade linguist-documentation
