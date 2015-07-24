@@ -7,6 +7,8 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
+    replace = require('gulp-replace'),
+    config = require('./config.json'),
     angularFiles = [
         'assets/js/app.js',
         'assets/js/routes.js',
@@ -99,11 +101,15 @@ gulp.task('sass', function() {
 
 gulp.task('jade', function() {
     jadeHandler('./', './');
-    jadeHandler('/assets/jade/', './assets/templates/');
+    jadeHandler('./assets/jade/', './assets/templates/');
 });
 
 
 gulp.task('js', function() {
+    gulp.src(['./assets/js/factories/api.js'])
+        .pipe(replace('$$url', config.url))
+        .pipe(gulp.dest('./assets/js/factories/'));
+
     gulp.src(angularFiles)
         .pipe(concat('app.js'))
         .pipe(gulp.dest('assets/source'))
@@ -131,7 +137,8 @@ gulp.task('watch', function() {
     gulp.watch('*.jade', ['jade']);
     gulp.watch('assets/jade/*.jade', ['jade']);
     gulp.watch('assets/sass/*.sass', ['sass']);
-    gulp.watch('./assets/**/*.coffee', ['coffee', 'coffeelint']);
+    gulp.watch('./assets/coffee/*.coffee', ['coffee', 'coffeelint']);
+    gulp.watch('./assets/coffee/**/*.coffee', ['coffee', 'coffeelint']);
     gulp.watch('./assets/js/*.js', ['js']);
 });
 // End tasks

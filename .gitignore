@@ -38,6 +38,7 @@ assets/script/*.js
 assets/script/**/*.js
 assets/templates/*.html
 index.html
+config.json
 
 ### ===== Editor Files ===== ###
 # Vim
