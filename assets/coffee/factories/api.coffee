@@ -22,8 +22,7 @@ angular.module('PokemonClub').factory('API', ['$http', ($http) ->
         ###
         keys = ['base', 'trainer', 'ball', 'held_item', 'move_1', 'move_2',
                 'move_3', 'move_4']
-        for k in keys
-            data["#{k}_id"] = data[k] if data[k]
+        data["#{k}_id"] = data[k] if data[k] for k in keys
         return data
 
 
