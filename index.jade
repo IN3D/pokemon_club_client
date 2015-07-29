@@ -1,0 +1,21 @@
+doctype html
+html(ng-app='PokemonClub', lang='en')
+    head
+        title Pokemon Club
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        link(rel='stylesheet', href='vendor/css/vendor.min.css')
+    body
+        h1 Pokemon Club
+        main.container
+            p words go here
+
+            .content(ng-view)
+
+        footer
+            hr
+            p this would be a footer
+            p and this is more text
+            hr
+        script(src='/vendor/js/vendor.min.js')
+        script(src='/assets/source/app.min.js')

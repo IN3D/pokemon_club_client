@@ -1,0 +1,22 @@
+div(class='panel panel-default')
+    div(class='panel-heading') Log in
+    div(class='panel-body')
+        form(class='form', id='signInForm')
+            div(class='form-group')
+                label(for='userName') User Name
+                input(class='form-control input-lg',
+                      type='text',
+                      placeholder='User Name',
+                      id='userName',
+                      ng-model='home.form.userName'
+                )
+            div(class='form-group')
+                label(for='password') Password
+                input(class='form-control input-lg',
+                      type='password',
+                      placeholder='password',
+                      id='password',
+                      ng-model='home.form.password'
+                )
+                button(class='btn btn-success', ng-click='home.login()') Login
+                button(class='btn btn-success', ng-click='home.test()') Test

@@ -40,6 +40,10 @@ assets/templates/*.html
 index.html
 config.json
 
+### Ignore project test files ###
+assets/coffee/controllers/testController.coffee
+assets/jade/test.jade
+
 ### ===== Editor Files ===== ###
 # Vim
 *.*.swp

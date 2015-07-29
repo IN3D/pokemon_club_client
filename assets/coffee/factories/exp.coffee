@@ -1,72 +1,99 @@
 angular.module('PokemonClub').factory('Exp', [() ->
-    ###
-    Exp Factory:
-    This factory abstracts the math surrounding Pokémon leveling up.
-    This is very prototypal and it's API points might change drastically in
-    the future.
-    ###
-    self = this
-    self.groups = {
-        'erratic': (level) ->
-            if(level == 1)
-                return 0
-            else if(level <= 50)
-                return Math.floor((Math.pow(level, 3) * (100 - level)) / 50)
-            else if(level <= 68)
-                return Math.floor((Math.pow(level, 3) * (150 - level)) / 100)
-            else if(level <= 98)
-                return Math.floor(
-                    Math.pow(level, 3) * (Math.floor(
-                        ((1911 - (10 * level)) / 3)
-                    ) / 500)
-                )
-            else
-                return Math.floor((Math.pow(level, 3) * (160 - level)) / 100)
+  ###
+  Exp Factory:
+  This factory abstracts the math surrounding Pokemon leveling up.
+  This is very prototypal and it's API points might change drastically in
+  the future.
+  ###
 
-        ,'fast': (level) ->
-            return Math.floor((4 * Math.pow(i, level)) / 5)
+  pow = Math.pow
+  floor = Math.floor
 
-        ,'medium_fast': (level) ->
-            if(level == 1)
-                return 0
-            else
-                return Math.pow(level, 3)
+  @groups = {
+    'erratic': (l) ->
+      ###
+      l <= 50:
+      l^3 (100 - l) / 50
+      50 <= l <= 68:
+      l^3 (150 - l) / 100
+      68 <= l <= 98:
+      l^3 [(1911 - 10l / 3)] / 500
+      98 <= l <= 100:
+      l^3 (160 - l) / 100
+      ###
+      if(l == 1)
+        0
+      else if(l <= 50)
+        floor((pow(l, 3) * (100 - l)) / 50)
+      else if(l <= 68)
+        floor((pow(l, 3) * (150 - l)) / 100)
+      else if(l <= 98)
+        floor(pow(l, 3) * (floor(((1911 - (10 * l)) / 3)) / 500))
+      else
+        floor((pow(l, 3) * (160 - l)) / 100)
 
-        ,'medium_slow': (level) ->
-            if(level == 1)
-                return 0
-            else
-                return Math.floor(
-                    ((6 / 5) * Math.pow(level, 3)) - (15 * Math.pow(level, 2) +
-                    (100 * level) - 140)
-                )
+    ,'fast': (l) ->
+      ###
+      4l^3 / 5
+      ###
+      floor((4 * pow(l, 3)) / 5)
 
-        ,'slow': (level) ->
-            if(level == 1)
-                return 0
-            else
-                return Math.floor((5 * Math.pow(level, 3)) / 4)
+    ,'medium_fast': (l) ->
+      ###
+      l^3
+      ###
+      if(l == 1)
+        0
+      else
+        pow(l, 3)
 
-        ,'fluctuating': (level) ->
-            if(level == 0)
-                return 0
-            else if(level <= 15)
-                return Math.floor(
-                    Math.pow(level, 3) * (
-                        Math.floor((((level + 1) / 3) + 24)) / 50
-                    )
-                )
-            else if(level <= 36)
-                return Math.floor(Math.pow(level, 3) * ((level + 14) / 50))
-            else
-                return Math.floor(
-                    Math.pow(level, 3) * (((level / 2) + 32) / 50)
-                )
+    ,'medium_slow': (l) ->
+      ###
+      (6/3)l^3 - 15l^2 + 100l - 140
+      ###
+      if(l == 1)
+        0
+      else
+        floor((((6 / 5) * pow(l, 3)) - (15 * pow(l, 2)) + (100 * l) - 140))
 
-    }
+    ,'slow': (l) ->
+      ###
+      5l^3 / 4
+      ###
+      if(l == 1)
+        0
+      else
+        floor((5 * pow(l, 3)) / 4)
 
-    return {
-        get_level_exp: (pokemon) ->
-            return self.groups[pokemon.exp_group](pokemon.level)
-    }
+    ,'fluctuating': (l) ->
+      ###
+      l <= 15:
+      l^3 ((l + 1) / 3) + 24 / 50)
+      15 <= l <= 36:
+      l^3 (l + 14 / 50)
+      36 <= l <= 100:
+      l^3 ((l / 2) + 32 / 50)
+      ###
+      if(l == 0)
+        0
+      else if(l <= 15)
+        floor(pow(l, 3) * (floor((((l + 1) / 3) + 24)) / 50))
+      else if(l <= 36)
+        floor(pow(l, 3) * ((l + 14) / 50))
+      else
+        floor(pow(l, 3) * (((l / 2) + 32) / 50))
+
+  }
+
+  return {
+    get_next_level_exp: (pokemon) =>
+      ###
+      @pokemon: Expects an object. That object should be the data of
+                a full pokemon object, not just the base data.
+      @return: An integer value, representing the amount of exp that
+               would be required to get the given pokemon to the next
+               level.
+      ###
+      @groups[pokemon.exp_group](pokemon.level)
+  }
 ])
